@@ -100,7 +100,7 @@ class FloatingJoystick:
 def main():
     game_map = GameMap(WORLD_W, WORLD_H)
     player = Soldier(WORLD_W//2, WORLD_H//2)
-    btr = BTR80(player.x + 150, player.y)
+    btr = BTR80(player.x + 110, player.y)
     cam = Camera()
     cam.x, cam.y = player.x, player.y
     joy = FloatingJoystick()
@@ -252,8 +252,13 @@ def main():
 
         game_map.draw(canvas, cam)
 
+        # БТР всегда отображается, даже в режиме редактора.
+        btr.draw(canvas, cam)
+        btr_sx, btr_sy = cam.world_to_screen(btr.x, btr.y)
+        btr_label = font.render("БТР-80", True, (255, 240, 80))
+        canvas.blit(btr_label, (int(btr_sx - btr_label.get_width() / 2), int(btr_sy - 65 * cam.zoom)))
+
         if not editor.active:
-            btr.draw(canvas, cam)
             player.draw(canvas, cam)
             joy.draw(canvas)
 
