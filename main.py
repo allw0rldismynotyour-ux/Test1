@@ -24,6 +24,7 @@ sys.excepthook = log_crash
 
 from map import GameMap, MapEditor
 from soldier import Soldier
+from btr80 import BTR80
 
 pygame.init()
 
@@ -99,6 +100,7 @@ class FloatingJoystick:
 def main():
     game_map = GameMap(WORLD_W, WORLD_H)
     player = Soldier(WORLD_W//2, WORLD_H//2)
+    btr = BTR80(player.x + 150, player.y)
     cam = Camera()
     cam.x, cam.y = player.x, player.y
     joy = FloatingJoystick()
@@ -251,6 +253,7 @@ def main():
         game_map.draw(canvas, cam)
 
         if not editor.active:
+            btr.draw(canvas, cam)
             player.draw(canvas, cam)
             joy.draw(canvas)
 
